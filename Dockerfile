@@ -1,10 +1,12 @@
 FROM php:8.2-apache
 
-# Copia os arquivos do projeto para o diretório web do Apache
+# Instala os drivers do MySQL (pdo_mysql e mysqli)
+RUN docker-php-ext-install pdo_mysql mysqli
+
+# Copia todos os arquivos do seu projeto para a pasta do servidor Apache
 COPY . /var/www/html/
 
-# Habilita o mod_rewrite do Apache (caso use URLs amigáveis)
+# Habilita o módulo de reescrita de URL do Apache
 RUN a2enmod rewrite
 
-# Expoe a porta padrão
 EXPOSE 80
